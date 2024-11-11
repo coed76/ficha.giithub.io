@@ -3,181 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Control Disciplinario</title>
+    <title>Reporte de Conducta</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <style>
-        :root {
-            --primary-color: #1a73e8;
-            --border-color: #ddd;
-            --background-color: #f8f9fa;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        /* Estilos generales para el tamaño carta */
+        @media print {
+            .buttons-container {
+                display: none;
+            }
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.4;
-            color: #333;
-            background-color: var(--background-color);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
         }
 
         .container {
-            width: 215.9mm;
-            min-height: 279.4mm;
-            margin: 0 auto;
-            background-color: white;
-            padding: 0.75in;
-            position: relative;
+            width: 21cm;
+            height: 29.7cm;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         h1 {
             text-align: center;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--border-color);
-            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         .form-section {
-            margin-bottom: 1rem;
-            padding: 0.5rem;
-            background-color: var(--background-color);
-            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .form-row {
             display: flex;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
+            gap: 10px;
         }
 
         .form-group {
             flex: 1;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.25rem;
-            font-weight: 600;
-            color: #555;
-            font-size: 0.9rem;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 0.4rem;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            font-size: 0.9rem;
-        }
-
-        textarea {
-            width: 100%;
-            padding: 0.4rem;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            font-size: 0.9rem;
-            resize: vertical;
-            min-height: 60px;
-            max-height: 120px;
-        }
-
-        .buttons-container {
             display: flex;
-            gap: 0.5rem;
-            justify-content: flex-end;
-            margin-top: 1rem;
-            padding-top: 0.5rem;
-            border-top: 1px solid var(--border-color);
+            flex-direction: column;
         }
 
-        button {
-            padding: 0.4rem 0.8rem;
-            border: none;
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
             border-radius: 4px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-
-        button[type="submit"] {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        button[type="button"] {
-            background-color: #f0f0f0;
-            color: #333;
+            width: 100%;
         }
 
         .signature-section {
-            margin-top: 1.5rem;
-            page-break-inside: avoid;
+            margin-top: 20px;
         }
 
         .signatures {
             display: flex;
-            justify-content: space-between;
-            gap: 2rem;
-            margin-top: 1rem;
+            justify-content: space-around;
+            margin-top: 20px;
         }
 
         .signature-line {
-            flex: 1;
             text-align: center;
+            width: 40%;
         }
 
         .signature-space {
-            height: 60px;
-            border-bottom: 2px solid #000;
-            margin-bottom: 0.25rem;
+            height: 50px;
+            border-bottom: 1px solid #000;
+            margin-bottom: 5px;
         }
 
-        .signature-line p {
-            font-size: 0.9rem;
-            margin-top: 0.25rem;
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
         }
 
-        @media print {
-            @page {
-                size: letter;
-                margin: 0;
-            }
+        .buttons-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-            body {
-                background: white;
-            }
-
-            .container {
-                width: 100%;
-                min-height: 100vh;
-                padding: 0.5in;
-                box-shadow: none;
-            }
-
-            .buttons-container {
-                display: none;
-            }
-
-            input, select, textarea {
-                border: 1px solid #000;
-            }
-
-            .form-section {
-                background-color: transparent;
-                padding: 0.25rem;
-            }
+        .buttons-container button:hover {
+            opacity: 0.9;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Formulario de Control Disciplinario</h1>
-        <form id="formulario">
+    <div class="container" id="formulario">
+        <h1>REPORTE DE CONDUCTA</h1>
+        <form>
             <div class="form-section">
                 <div class="form-row">
                     <div class="form-group">
@@ -202,15 +147,22 @@
                         <input type="number" id="edad" name="edad" required>
                     </div>
                 </div>
-
                 <div class="form-row">
                     <div class="form-group">
                         <label for="grado">Grado</label>
-                        <input type="text" id="grado" name="grado" required>
+                        <select id="grado" name="grado" required>
+                            <option value="1° General">1° General</option>
+                            <option value="2° General">2° General</option>
+                            <option value="1° Técnico">1° Técnico</option>
+                            <option value="2° Técnico">2° Técnico</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="seccion">Sección</label>
-                        <input type="text" id="seccion" name="seccion" required>
+                        <select id="seccion" name="seccion" required>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -226,7 +178,6 @@
                         <input type="tel" id="telefono" name="telefono" required>
                     </div>
                 </div>
-
                 <div class="form-row">
                     <div class="form-group">
                         <label for="subdirector">Nombre del Subdirector</label>
@@ -246,14 +197,14 @@
             <div class="form-section">
                 <div class="form-group">
                     <label for="descripcion">Descripción de la Falta</label>
-                    <textarea id="descripcion" name="descripcion" required></textarea>
+                    <textarea id="descripcion" name="descripcion" rows="3" required></textarea>
                 </div>
             </div>
 
             <div class="form-section">
                 <div class="form-group">
                     <label for="acuerdo">Acuerdo con el Responsable</label>
-                    <textarea id="acuerdo" name="acuerdo"></textarea>
+                    <textarea id="acuerdo" name="acuerdo" rows="3"></textarea>
                 </div>
             </div>
 
@@ -269,50 +220,53 @@
                     </div>
                 </div>
             </div>
-
-            <div class="buttons-container">
-                <button type="button" onclick="imprimirPagina()">Imprimir</button>
-                <button type="button" onclick="exportarPDF()">Exportar a PDF</button>
-                <button type="button" onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
-                <button type="reset">Nuevo Registro</button>
-                <button type="submit">Guardar</button>
-            </div>
         </form>
+
+        <div class="buttons-container">
+            <button onclick="nuevoFormulario()">Nuevo Formulario</button>
+            <button onclick="window.print()">Imprimir</button>
+            <button onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
+            <button onclick="generarPDF()">Exportar a PDF</button>
+        </div>
     </div>
 
     <script>
-        function imprimirPagina() {
-            window.print();
-        }
-
-        function exportarPDF() {
-            window.print();
+        function nuevoFormulario() {
+            document.getElementById("formulario").reset();
         }
 
         function enviarWhatsApp() {
-            const telefono = document.getElementById('telefono').value;
-            if (telefono.trim() === '') {
-                alert('Por favor, ingrese un número de teléfono.');
-                return;
-            }
-
-            const nombre = document.getElementById('nombre').value;
-            const grado = document.getElementById('grado').value;
-            const seccion = document.getElementById('seccion').value;
-            const fecha = document.getElementById('fecha').value;
-            const hora = document.getElementById('hora').value;
-            const tipoFalta = document.getElementById('tipoFalta').value;
-            const descripcion = document.getElementById('descripcion').value;
-            const acuerdo = document.getElementById('acuerdo').value;
-
-            const mensaje = `Estimado(a):%0A%0A` +
-                          `Le informamos que el estudiante ${nombre} del grado ${grado} sección ${seccion} ` +
-                          `el día ${fecha} a las ${hora} incurrió en una falta ${tipoFalta}.%0A%0A` +
-                          `Descripción de la falta:%0A${descripcion}%0A%0A` +
-                          `Acuerdo con el responsable:%0A${acuerdo}`;
-
+            const telefono = document.getElementById("telefono").value;
+            const nombre = document.getElementById("nombre").value;
+            const fecha = document.getElementById("fecha").value;
+            const mensaje = `Reporte de conducta de ${nombre} - Fecha: ${fecha}`;
             const urlWhatsApp = `https://web.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(mensaje)}`;
-            window.open(urlWhatsApp, '_blank');
+            window.open(urlWhatsApp, "_blank");
+        }
+
+        function generarPDF() {
+            const { jsPDF } = window.jspdf;
+            html2canvas(document.getElementById("formulario"), { scale: 2 }).then(canvas => {
+                const imgData = canvas.toDataURL("image/png");
+                const pdf = new jsPDF("p", "mm", "a4");
+                const imgWidth = 210;
+                const pageHeight = 297;
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                let heightLeft = imgHeight;
+                let position = 0;
+
+                pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+
+                pdf.save("ReporteDeConducta.pdf");
+            });
         }
     </script>
 </body>
