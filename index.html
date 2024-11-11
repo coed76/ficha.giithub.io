@@ -206,11 +206,19 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="grado">Grado</label>
-                        <input type="text" id="grado" name="grado" required>
+                        <select id="grado" name="grado" required>
+                            <option value="1° General">1° General</option>
+                            <option value="2° General">2° General</option>
+                            <option value="1° Tecnico">1° Tecnico</option>
+                            <option value="2° Tecnico">2° Tecnico</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="seccion">Sección</label>
-                        <input type="text" id="seccion" name="seccion" required>
+                        <select id="seccion" name="seccion" required>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -234,7 +242,7 @@
                     </div>
                     <div class="form-group">
                         <label for="tipoFalta">Tipo de Falta</label>
-                        <select id="tipoFalta" name="tipoFalta">
+                        <select id="tipoFalta" name="tipoFalta" required>
                             <option value="Leve">Leve</option>
                             <option value="Moderada">Moderada</option>
                             <option value="Grave">Grave</option>
@@ -275,7 +283,7 @@
                 <button type="button" onclick="exportarPDF()">Exportar a PDF</button>
                 <button type="button" onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
                 <button type="reset">Nuevo Registro</button>
-                <button type="submit">Guardar</button>
+                <button type="submit" disabled>Guardar</button>
             </div>
         </form>
     </div>
@@ -314,6 +322,12 @@
             const urlWhatsApp = `https://web.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(mensaje)}`;
             window.open(urlWhatsApp, '_blank');
         }
+
+        const form = document.getElementById('formulario');
+        const submitButton = form.querySelector('button[type="submit"]');
+        form.addEventListener('input', () => {
+            submitButton.disabled = !form.checkValidity();
+        });
     </script>
 </body>
 </html>
