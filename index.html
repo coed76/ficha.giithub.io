@@ -122,7 +122,7 @@
 <body>
     <div class="container" id="formulario">
         <h1>REPORTE DE CONDUCTA</h1>
-        <form>
+        <form id="reporteForm">
             <div class="form-section">
                 <div class="form-row">
                     <div class="form-group">
@@ -223,16 +223,17 @@
         </form>
 
         <div class="buttons-container">
-            <button onclick="nuevoFormulario()">Nuevo Formulario</button>
-            <button onclick="window.print()">Imprimir</button>
-            <button onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
-            <button onclick="generarPDF()">Exportar a PDF</button>
+            <button onclick="nuevoFormulario()" disabled>Nuevo Formulario</button>
+            <button onclick="window.print()" disabled>Imprimir</button>
+            <button onclick="enviarWhatsApp()" disabled>Enviar por WhatsApp</button>
+            <button onclick="generarPDF()" disabled>Exportar a PDF</button>
         </div>
     </div>
 
     <script>
         function nuevoFormulario() {
-            document.getElementById("formulario").reset();
+            document.getElementById("reporteForm").reset();
+            checkFormFields();
         }
 
         function enviarWhatsApp() {
@@ -268,6 +269,24 @@
                 pdf.save("ReporteDeConducta.pdf");
             });
         }
+
+        function checkFormFields() {
+            const form = document.getElementById("reporteForm");
+            const buttons = document.querySelectorAll(".buttons-container button");
+            let allFilled = true;
+
+            form.querySelectorAll("input, select, textarea").forEach(input => {
+                if (!input.value) {
+                    allFilled = false;
+                }
+            });
+
+            buttons.forEach(button => {
+                button.disabled = !allFilled;
+            });
+        }
+
+        document.getElementById("reporteForm").addEventListener("input", checkFormFields);
     </script>
 </body>
 </html>
