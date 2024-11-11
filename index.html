@@ -1,1 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Control Disciplinario</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --border-color: #ddd;
+            --background-color: #f8f9fa;
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.4;
+            color: #333;
+            background-color: var(--background-color);
+        }
+
+        .container {
+            width: 215.9mm;
+            min-height: 279.4mm;
+            margin: 0 auto;
+            background-color: white;
+            padding: 0.75in;
+            position: relative;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            font-size: 1.5rem;
+        }
+
+        .form-section {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            background-color: var(--background-color);
+            border-radius: 4px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.4rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 0.4rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            resize: vertical;
+            min-height: 60px;
+            max-height: 120px;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+            margin-top: 1rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        button {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        button[type="submit"] {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        button[type="button"] {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .signature-section {
+            margin-top: 1.5rem;
+            page-break-inside: avoid;
+        }
+
+        .signatures {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .signature-line {
+            flex: 1;
+            text-align: center;
+        }
+
+        .signature-space {
+            height: 60px;
+            border-bottom: 2px solid #000;
+            margin-bottom: 0.25rem;
+        }
+
+        .signature-line p {
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        @media print {
+            @page {
+                size: letter;
+                margin: 0;
+            }
+
+            body {
+                background: white;
+            }
+
+            .container {
+                width: 100%;
+                min-height: 100vh;
+                padding: 0.5in;
+                box-shadow: none;
+            }
+
+            .buttons-container {
+                display: none;
+            }
+
+            input, select, textarea {
+                border: 1px solid #000;
+            }
+
+            .form-section {
+                background-color: transparent;
+                padding: 0.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Formulario de Control Disciplinario</h1>
+        <form id="formulario">
+            <div class="form-section">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fecha">Fecha</label>
+                        <input type="date" id="fecha" name="fecha" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hora">Hora</label>
+                        <input type="time" id="hora" name="hora" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nombre">Nombre del Estudiante</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edad">Edad</label>
+                        <input type="number" id="edad" name="edad" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="grado">Grado</label>
+                        <input type="text" id="grado" name="grado" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="seccion">Sección</label>
+                        <input type="text" id="seccion" name="seccion" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="responsable">Nombre del Responsable</label>
+                        <input type="text" id="responsable" name="responsable" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="subdirector">Nombre del Subdirector</label>
+                        <input type="text" id="subdirector" name="subdirector">
+                    </div>
+                    <div class="form-group">
+                        <label for="tipoFalta">Tipo de Falta</label>
+                        <select id="tipoFalta" name="tipoFalta">
+                            <option value="Leve">Leve</option>
+                            <option value="Moderada">Moderada</option>
+                            <option value="Grave">Grave</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="form-group">
+                    <label for="descripcion">Descripción de la Falta</label>
+                    <textarea id="descripcion" name="descripcion" required></textarea>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="form-group">
+                    <label for="acuerdo">Acuerdo con el Responsable</label>
+                    <textarea id="acuerdo" name="acuerdo"></textarea>
+                </div>
+            </div>
+
+            <div class="signature-section">
+                <div class="signatures">
+                    <div class="signature-line">
+                        <div class="signature-space"></div>
+                        <p>Firma del Responsable</p>
+                    </div>
+                    <div class="signature-line">
+                        <div class="signature-space"></div>
+                        <p>Firma del Subdirector(a)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttons-container">
+                <button type="button" onclick="imprimirPagina()">Imprimir</button>
+                <button type="button" onclick="exportarPDF()">Exportar a PDF</button>
+                <button type="button" onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
+                <button type="reset">Nuevo Registro</button>
+                <button type="submit">Guardar</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function imprimirPagina() {
+            window.print();
+        }
+
+        function exportarPDF() {
+            window.print();
+        }
+
+        function enviarWhatsApp() {
+            const telefono = document.getElementById('telefono').value;
+            if (telefono.trim() === '') {
+                alert('Por favor, ingrese un número de teléfono.');
+                return;
+            }
+
+            const nombre = document.getElementById('nombre').value;
+            const grado = document.getElementById('grado').value;
+            const seccion = document.getElementById('seccion').value;
+            const fecha = document.getElementById('fecha').value;
+            const hora = document.getElementById('hora').value;
+            const tipoFalta = document.getElementById('tipoFalta').value;
+            const descripcion = document.getElementById('descripcion').value;
+            const acuerdo = document.getElementById('acuerdo').value;
+
+            const mensaje = `Estimado(a):%0A%0A` +
+                          `Le informamos que el estudiante ${nombre} del grado ${grado} sección ${seccion} ` +
+                          `el día ${fecha} a las ${hora} incurrió en una falta ${tipoFalta}.%0A%0A` +
+                          `Descripción de la falta:%0A${descripcion}%0A%0A` +
+                          `Acuerdo con el responsable:%0A${acuerdo}`;
+
+            const urlWhatsApp = `https://web.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(mensaje)}`;
+            window.open(urlWhatsApp, '_blank');
+        }
+    </script>
+</body>
+</html>
